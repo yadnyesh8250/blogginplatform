@@ -1,7 +1,6 @@
-import { Alert, Spinner, Button, Label, TextInput } from 'flowbite-react';
+import { Alert, Spinner } from 'flowbite-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import OAuth from '../components/OAuth';
 import { api } from '../utils/api.config';
 
 const FEATURES = [

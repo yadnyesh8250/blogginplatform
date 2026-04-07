@@ -46,7 +46,7 @@ export default function SignIn() {
           
           <div className='space-y-6'>
             <h1 className='text-5xl font-black leading-[0.95] tracking-tighter uppercase'>
-               Institutional <span className='text-slate-600 italic font-serif lowercase tracking-normal'>access.</span>
+               Professional <span className='text-slate-600 italic font-serif lowercase tracking-normal'>access.</span>
             </h1>
             <p className='text-slate-400 text-lg leading-relaxed font-bold tracking-tight italic'>
               Secure entry for the modern storyteller. Access your professional dashboard and digital archives.
@@ -74,22 +74,22 @@ export default function SignIn() {
 
           <header className='space-y-2'>
             <h2 className='text-3xl font-black text-slate-950 dark:text-white uppercase tracking-tighter'>Sign In</h2>
-            <p className='text-slate-400 text-xs font-black uppercase tracking-widest'>Encryption active / Welcome back</p>
+            <p className='text-slate-400 text-xs font-black uppercase tracking-widest'>Secure Login / Welcome back</p>
           </header>
 
           <form onSubmit={handleSubmit} className='space-y-8'>
             <div className='group'>
-              <label className='block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 group-focus-within:text-slate-950 dark:group-focus-within:text-white transition-colors'>Identifier (Username)</label>
+              <label className='block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 group-focus-within:text-slate-950 dark:group-focus-within:text-white transition-colors'>Username</label>
               <input
                 type='text'
                 id='email'
-                placeholder='your_username'
+                placeholder='enter_username'
                 onChange={handleChange}
                 className='w-full px-0 py-3 bg-transparent border-0 border-b border-slate-200 dark:border-slate-800 text-sm text-slate-900 dark:text-white focus:ring-0 focus:border-slate-950 dark:focus:border-white transition-all font-bold placeholder:text-slate-200 dark:placeholder:text-slate-800'
               />
             </div>
             <div className='group'>
-              <label className='block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 group-focus-within:text-slate-950 dark:group-focus-within:text-white transition-colors'>Security Key (Password)</label>
+              <label className='block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 group-focus-within:text-slate-950 dark:group-focus-within:text-white transition-colors'>Password</label>
               <input
                 type='password'
                 id='password'
@@ -107,7 +107,7 @@ export default function SignIn() {
               {loading ? (
                 <><Spinner size='sm' /><span>Validating...</span></>
               ) : (
-                <>Access Account <span className='opacity-30'>→</span></>
+                <>Sign In <span className='opacity-30'>→</span></>
               )}
             </button>
           </form>

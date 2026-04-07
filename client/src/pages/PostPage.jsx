@@ -226,7 +226,7 @@ export default function PostPage() {
         <aside className='hidden lg:block lg:col-span-3 space-y-16'>
            <div className='sticky top-40 space-y-16'>
               <div className='space-y-6'>
-                <h4 className='text-[10px] font-black uppercase tracking-[0.4em] text-slate-400'>Metadata Registry</h4>
+                <h4 className='text-[10px] font-black uppercase tracking-[0.4em] text-slate-400'>Post Details</h4>
                 <div className='space-y-4 text-xs font-bold text-slate-700 dark:text-slate-300'>
                    <div className='flex justify-between py-3 border-b border-slate-50 dark:border-slate-900'>
                       <span className='italic font-serif'>Index Symbol</span>

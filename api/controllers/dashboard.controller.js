@@ -4,31 +4,31 @@ import Comment from '../models/comment.model.js';
 
 export const getDashboard = async (req, res, next) => {
   try {
-    // 🔥 TOTAL COUNTS
-    const users = await User.countDocuments();
-    const posts = await Post.countDocuments();
-    const comments = await Comment.countDocuments();
+    const now = new Date();
+    const oneMonthAgo = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
 
-    // 🔥 RECENT DATA
-    const recentUsers = await User.find()
-      .sort({ createdAt: -1 })
-      .limit(5);
+    const totalUsers = await User.countDocuments();
+    const totalPosts = await Post.countDocuments();
+    const totalComments = await Comment.countDocuments();
 
-    const recentPosts = await Post.find()
-      .sort({ createdAt: -1 })
-      .limit(5);
+    const lastMonthUsers = await User.countDocuments({ createdAt: { $gte: oneMonthAgo } });
+    const lastMonthPosts = await Post.countDocuments({ createdAt: { $gte: oneMonthAgo } });
+    const lastMonthComments = await Comment.countDocuments({ createdAt: { $gte: oneMonthAgo } });
 
-    const recentComments = await Comment.find()
-      .sort({ createdAt: -1 })
-      .limit(5);
+    const users = await User.find().sort({ createdAt: -1 }).limit(5);
+    const posts = await Post.find().sort({ createdAt: -1 }).limit(5);
+    const comments = await Comment.find().sort({ createdAt: -1 }).limit(5);
 
     res.status(200).json({
+      totalUsers,
+      totalPosts,
+      totalComments,
+      lastMonthUsers,
+      lastMonthPosts,
+      lastMonthComments,
       users,
       posts,
       comments,
-      recentUsers,
-      recentPosts,
-      recentComments,
     });
   } catch (error) {
     next(error);

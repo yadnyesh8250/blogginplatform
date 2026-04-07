@@ -6,7 +6,7 @@ import { api } from '../utils/api.config';
 const FEATURES = [
   { icon: '🎨', title: 'Institutional Themes', desc: 'Each entry can have its own curated visual identity' },
   { icon: '📝', title: 'Editorial Engine', desc: 'Full formatting, embeds, and professional typography' },
-  { icon: '🔍', title: 'Registry Ready', desc: 'Advanced metadata and automated archival per post' },
+  { icon: '🔍', title: 'Always Ready', desc: 'Advanced metadata and automated archival per post' },
   { icon: '📊', title: 'Intelligence Data', desc: 'Track resonance, reach, and reader commitment metrics' },
 ];
 
@@ -89,23 +89,23 @@ export default function SignUp() {
           </Link>
 
           <header className='space-y-2'>
-            <h2 className='text-3xl font-black text-slate-950 dark:text-white uppercase tracking-tighter'>Registration</h2>
+            <h2 className='text-3xl font-black text-slate-950 dark:text-white uppercase tracking-tighter'>Create Account</h2>
             <p className='text-slate-400 text-xs font-black uppercase tracking-widest'>Secure & Encrypted / Welcome</p>
           </header>
 
           <form onSubmit={handleSubmit} className='space-y-8'>
             <div className='group'>
-              <label className='block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 group-focus-within:text-slate-950 dark:group-focus-within:text-white transition-colors'>Identifier (Username)</label>
+              <label className='block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 group-focus-within:text-slate-950 dark:group-focus-within:text-white transition-colors'>Username</label>
               <input
                 type='text'
                 id='username'
-                placeholder='authorized_personnel'
+                placeholder='choose_a_username'
                 onChange={handleChange}
                 className='w-full px-0 py-3 bg-transparent border-0 border-b border-slate-200 dark:border-slate-800 text-sm text-slate-900 dark:text-white focus:ring-0 focus:border-slate-950 dark:focus:border-white transition-all font-bold placeholder:text-slate-200 dark:placeholder:text-slate-800'
               />
             </div>
             <div className='group'>
-              <label className='block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 group-focus-within:text-slate-950 dark:group-focus-within:text-white transition-colors'>Registry Email</label>
+              <label className='block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 group-focus-within:text-slate-950 dark:group-focus-within:text-white transition-colors'>Email Address</label>
               <input
                 type='email'
                 id='email'
@@ -133,7 +133,7 @@ export default function SignUp() {
               {loading ? (
                 <><Spinner size='sm' /><span>Validating Payload...</span></>
               ) : (
-                <>Establish Account <span className='opacity-30'>→</span></>
+                <>Join Now <span className='opacity-30'>→</span></>
               )}
             </button>
           </form>

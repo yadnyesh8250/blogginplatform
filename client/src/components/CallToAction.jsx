@@ -7,7 +7,7 @@ export default function CallToAction() {
       
       <div className="relative z-10 space-y-8">
         <h2 className="text-3xl md:text-5xl font-black text-white dark:text-slate-950 uppercase tracking-tighter leading-none">
-          Ready to commence your <span className="text-slate-600 italic font-serif lowercase tracking-normal">chronicle?</span>
+          Ready to start your <span className="text-slate-600 italic font-serif lowercase tracking-normal">story?</span>
         </h2>
         <p className="text-slate-400 dark:text-slate-600 mb-10 max-w-xl mx-auto font-bold tracking-tight italic">
           Join the professional-grade ecosystem for deep technical insights and high-fidelity storytelling.

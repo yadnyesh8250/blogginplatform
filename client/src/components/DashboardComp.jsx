@@ -25,39 +25,19 @@ export default function DashboardComp() {
   const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchDashboardData = async () => {
       try {
-        const res = await api('/api/user/getusers?limit=5');
+        const res = await api('/api/dashboard');
         const data = await res.json();
         if (res.ok) {
           setUsers(data.users);
-          setTotalUsers(data.totalUsers);
-          setLastMonthUsers(data.lastMonthUsers);
-        }
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    const fetchPosts = async () => {
-      try {
-        const res = await api('/api/post/getposts?limit=5');
-        const data = await res.json();
-        if (res.ok) {
           setPosts(data.posts);
-          setTotalPosts(data.totalPosts);
-          setLastMonthPosts(data.lastMonthPosts);
-        }
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    const fetchComments = async () => {
-      try {
-        const res = await api('/api/comment/getcomments?limit=5');
-        const data = await res.json();
-        if (res.ok) {
           setComments(data.comments);
+          setTotalUsers(data.totalUsers);
+          setTotalPosts(data.totalPosts);
           setTotalComments(data.totalComments);
+          setLastMonthUsers(data.lastMonthUsers);
+          setLastMonthPosts(data.lastMonthPosts);
           setLastMonthComments(data.lastMonthComments);
         }
       } catch (error) {
@@ -65,9 +45,7 @@ export default function DashboardComp() {
       }
     };
     if (currentUser.isAdmin) {
-      fetchUsers();
-      fetchPosts();
-      fetchComments();
+      fetchDashboardData();
     }
   }, [currentUser]);
 

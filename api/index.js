@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import cors from 'cors';
 
 // Routes
 import userRoutes from './routes/user.route.js';
@@ -27,6 +28,12 @@ mongoose
 const app = express();
 
 // Middlewares
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || '*',
+    credentials: true,
+  })
+);
 app.use(express.json({ limit: '10mb' }));
 app.use(cookieParser());
 
@@ -41,16 +48,13 @@ app.use('/api/category', categoryRoutes);
 app.use('/api/tag', tagRoutes);
 app.use('/api/settings', settingsRoutes);
 
-// Serve static frontend in production
-const __dirname = path.resolve();
-const clientDist = path.join(__dirname, '/client/dist');
+// API health check
+app.get('/', (req, res) => {
+  res.json({ message: 'Blogify API is running 🚀' });
+});
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(clientDist));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(clientDist, 'index.html'));
-  });
-}
+// Serving static files has been disabled for API-only deployment (Vercel + Render).
+// Front-end is hosted on Vercel. 
 
 // Global error handler
 app.use((err, req, res, next) => {

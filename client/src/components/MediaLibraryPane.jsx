@@ -43,7 +43,6 @@ export default function MediaLibraryPane({ show, onClose, onSelect }) {
       const res = await api('/api/upload', {
         method: 'POST',
         body: formData,
-        headers: {},
       });
       const data = await res.json();
 

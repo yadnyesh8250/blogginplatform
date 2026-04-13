@@ -34,7 +34,7 @@ export default function DashProfile() {
   useEffect(() => {
     const fetchUserPosts = async () => {
       try {
-        const res = await fetch(`/api/post/getposts?userId=${currentUser._id}&limit=3`);
+        const res = await api(`/api/post/getposts?userId=${currentUser._id}&limit=3`);
         const data = await res.json();
         if (res.ok) setUserPosts(data.posts);
       } catch (err) { console.log(err.message); }
@@ -61,39 +61,22 @@ export default function DashProfile() {
       const formDataUpload = new FormData();
       formDataUpload.append('file', imageFile);
 
-      // Using standard XHR to track progress since fetch doesn't support it directly
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', '/api/upload', true);
+      const res = await api('/api/upload', {
+        method: 'POST',
+        body: formDataUpload,
+      });
+      const data = await res.json();
       
-      xhr.upload.onprogress = (e) => {
-        if (e.lengthComputable) {
-          const progress = (e.loaded / e.total) * 100;
-          setImageFileUploadProgress(progress.toFixed(0));
-        }
-      };
-
-      xhr.onload = () => {
-        if (xhr.status === 200) {
-          const data = JSON.parse(xhr.responseText);
-          setImageFileUrl(data.url);
-          setFormData({ ...formData, profilePicture: data.url });
-          setImageFileUploading(false);
-          setImageFileUploadProgress(null);
-        } else {
-          const data = JSON.parse(xhr.responseText);
-          setImageFileUploadError(data.message || 'Could not upload image');
-          setImageFileUploading(false);
-          setImageFileUploadProgress(null);
-        }
-      };
-
-      xhr.onerror = () => {
-        setImageFileUploadError('Could not upload image (Network Error)');
+      if (res.ok) {
+        setImageFileUrl(data.url);
+        setFormData({ ...formData, profilePicture: data.url });
         setImageFileUploading(false);
         setImageFileUploadProgress(null);
-      };
-
-      xhr.send(formDataUpload);
+      } else {
+        setImageFileUploadError(data.message || 'Could not upload image');
+        setImageFileUploading(false);
+        setImageFileUploadProgress(null);
+      }
     } catch (error) {
       setImageFileUploadError('Something went wrong during upload');
       setImageFileUploading(false);
@@ -111,7 +94,7 @@ export default function DashProfile() {
     if (imageFileUploading) { setUpdateUserError('Please wait for image to upload'); return; }
     try {
       dispatch(updateStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+      const res = await api(`/api/user/update/${currentUser._id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -131,7 +114,7 @@ export default function DashProfile() {
     setShowDeleteModal(false);
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${currentUser._id}`, { method: 'DELETE' });
+      const res = await api(`/api/user/delete/${currentUser._id}`, { method: 'DELETE' });
       const data = await res.json();
       if (!res.ok) dispatch(deleteUserFailure(data.message));
       else dispatch(deleteUserSuccess(data));
@@ -140,7 +123,7 @@ export default function DashProfile() {
 
   const handleSignout = async () => {
     try {
-      const res = await fetch('/api/user/signout', { method: 'POST' });
+      const res = await api('/api/user/signout', { method: 'POST' });
       const data = await res.json();
       if (!res.ok) console.log(data.message);
       else dispatch(signoutSuccess());

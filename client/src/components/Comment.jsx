@@ -3,18 +3,18 @@ import { useEffect, useState } from "react";
 import { FaThumbsUp } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { Button, Textarea } from 'flowbite-react';
-import { set } from 'mongoose';
+import { api } from '../utils/api.config';
 
 export default function Comment({ comment, onLike, onEdit, onDelete }) {
     const [user, setUser] = useState({});
     const [isEditing, setIsEditing] = useState(false);
     const [editedContent, setEditedContent] = useState(comment.content);
     const { currentUser } = useSelector((state) => state.user);
-    console.log(user);
+    
     useEffect(() => {
       const getUser = async () => {
         try {
-          const res = await fetch(`/api/user/${comment.userId}`);
+          const res = await api(`/api/user/${comment.userId}`);
           const data = await res.json();
           if (res.ok) {
             setUser(data);
@@ -33,7 +33,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
 
     const handleSave = async () => {
       try {
-        const res = await fetch(`/api/comment/editComment/${comment._id}`, {
+        const res = await api(`/api/comment/editComment/${comment._id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { HiOutlineExclamationCircle, HiPencil, HiTrash, HiDocumentText, HiEye, HiGlobeAlt, HiLockClosed, HiClock } from 'react-icons/hi';
+import { api } from '../utils/api.config';
 
 export default function DashPosts() {
   const { currentUser } = useSelector((state) => state.user);
@@ -19,7 +20,7 @@ export default function DashPosts() {
   const fetchPosts = async () => {
     try {
       const statusParam = activeTab === 'all' ? '' : `&status=${activeTab}`;
-      const res = await fetch(`/api/post/getposts?userId=${currentUser._id}${statusParam}`);
+      const res = await api(`/api/post/getposts?userId=${currentUser._id}${statusParam}`);
       const data = await res.json();
       if (res.ok) {
         setUserPosts(data.posts);
@@ -33,7 +34,7 @@ export default function DashPosts() {
     const startIndex = userPosts.length;
     const statusParam = activeTab === 'all' ? '' : `&status=${activeTab}`;
     try {
-      const res = await fetch(`/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}${statusParam}`);
+      const res = await api(`/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}${statusParam}`);
       const data = await res.json();
       if (res.ok) {
         setUserPosts((prev) => [...prev, ...data.posts]);
@@ -45,7 +46,7 @@ export default function DashPosts() {
   const handleDeletePost = async () => {
     setShowModal(false);
     try {
-      const res = await fetch(`/api/post/deletepost/${postIdToDelete}/${currentUser._id}`, { method: 'DELETE' });
+      const res = await api(`/api/post/deletepost/${postIdToDelete}/${currentUser._id}`, { method: 'DELETE' });
       if (res.ok) setUserPosts((prev) => prev.filter((p) => p._id !== postIdToDelete));
     } catch (error) { console.log(error.message); }
   };

@@ -17,7 +17,9 @@ import settingsRoutes from './routes/settings.route.js';
 import dashboardRoutes from './routes/dashboard.routes.js';
 
 // Load environment variables
-dotenv.config({ path: './api/.env' });
+// For local development, look in the api folder. In production, variables are provided by the platform.
+dotenv.config(); 
+dotenv.config({ path: path.resolve(process.cwd(), 'api', '.env') });
 
 // Connect to MongoDB
 mongoose
@@ -28,9 +30,10 @@ mongoose
 const app = express();
 
 // Middlewares
+const allowedOrigin = process.env.FRONTEND_URL || '*';
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || '*',
+    origin: allowedOrigin,
     credentials: true,
   })
 );

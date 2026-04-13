@@ -4,6 +4,7 @@ import { Spinner } from 'flowbite-react';
 import PostCard from '../components/PostCard';
 import { HiOutlineMail, HiOutlineGlobeAlt, HiOutlineLightningBolt, HiOutlineHeart, HiOutlineBookOpen } from 'react-icons/hi';
 import { motion } from 'framer-motion';
+import { api } from '../utils/api.config';
 
 export default function UserPage() {
   const { userId } = useParams();
@@ -17,13 +18,13 @@ export default function UserPage() {
       try {
         setLoading(true);
         // Fetch user data and stats
-        const res = await fetch(`/api/user/stats/${userId}`);
+        const res = await api(`/api/user/stats/${userId}`);
         const data = await res.json();
         if (!res.ok) { setError(true); setLoading(false); return; }
         setUser(data);
 
         // Fetch user's posts
-        const postsRes = await fetch(`/api/post/getposts?userId=${userId}`);
+        const postsRes = await api(`/api/post/getposts?userId=${userId}`);
         const postsData = await postsRes.json();
         if (postsRes.ok) setUserPosts(postsData.posts);
 

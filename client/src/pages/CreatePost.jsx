@@ -7,6 +7,8 @@ import MediaLibraryPane from '../components/MediaLibraryPane';
 import ThemePicker from '../themes/ThemePicker';
 import { getTheme } from '../themes/themes';
 import { HiColorSwatch, HiCube, HiPencilAlt, HiCheckCircle } from 'react-icons/hi';
+import { api } from '../utils/api.config';
+import { motion } from 'framer-motion';
 
 export default function CreatePost() {
   const [formData, setFormData] = useState({
@@ -56,7 +58,7 @@ export default function CreatePost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/post/create', {
+      const res = await api('/api/post/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

@@ -4,6 +4,9 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import cors from 'cors';
+import dns from 'dns';
+
+dns.setDefaultResultOrder('ipv4first');
 
 // Routes
 import userRoutes from './routes/user.route.js';
@@ -54,6 +57,13 @@ app.use('/api/settings', settingsRoutes);
 // API health check
 app.get('/', (req, res) => {
   res.json({ message: 'Blogify API is running 🚀' });
+});
+
+app.get('/db-status', (req, res) => {
+  res.json({
+    readyState: mongoose.connection.readyState,
+    readyStateDesc: ['disconnected', 'connected', 'connecting', 'disconnecting'][mongoose.connection.readyState]
+  });
 });
 
 // Serving static files has been disabled for API-only deployment (Vercel + Render).
